@@ -6,7 +6,6 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
-import FilteredProductsScreen from './src/screens/FilteredProductsScreen';
 import ProductViewScreen from './src/screens/ProductViewScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import CheckoutScreen from './src/screens/CheckoutScreen';
@@ -14,6 +13,7 @@ import PaymentmodeScreen from './src/screens/PaymentmodeScreen';
 import OrderConfirmedScreen from './src/screens/OrderConfirmedScreen';
 import ProductsScreen from './src/screens/ProductsScreen';
 import {Provider as AuthProvider} from './src/context/AuthContext';
+import {Provider as ProductsProvider} from './src/context/ProductsContext';
 import {navigationRef, navigate} from './src/navigationRef';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -52,6 +52,7 @@ function Products({navigation}) {
         name="ProductView"
         component={ProductViewScreen}
         options={{
+          headerTitle: '',
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icon name="bars" size={30} style={{marginLeft: 20}} />
@@ -100,28 +101,30 @@ function App() {
   return (
     <NavigationContainer ref={navigationRef}>
       <AuthProvider>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Signup"
-            component={SignupScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Signin"
-            component={SigninScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Shop"
-            component={Shop}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
+        <ProductsProvider>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Welcome"
+              component={WelcomeScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Signin"
+              component={SigninScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Shop"
+              component={Shop}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </ProductsProvider>
       </AuthProvider>
     </NavigationContainer>
   );
