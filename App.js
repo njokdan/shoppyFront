@@ -14,7 +14,10 @@ import PaymentmodeScreen from './src/screens/PaymentmodeScreen';
 import OrderConfirmedScreen from './src/screens/OrderConfirmedScreen';
 import ProductsScreen from './src/screens/ProductsScreen';
 import {Provider as AuthProvider} from './src/context/AuthContext';
-import {navigationRef} from './src/navigationRef';
+import {navigationRef, navigate} from './src/navigationRef';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {DrawerActions} from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -29,11 +32,53 @@ function CartFlow() {
   );
 }
 
-function Products() {
+function Products({navigation}) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ProductsHome" component={ProductsScreen} />
-      <Stack.Screen name="ProductView" component={ProductViewScreen} />
+      <Stack.Screen
+        name="ProductsHome"
+        component={ProductsScreen}
+        options={{
+          headerTitle: 'Products',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ProductView"
+        component={ProductViewScreen}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function Account({navigation}) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerTitle: 'Account',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -44,7 +89,7 @@ function Shop() {
       <AuthProvider>
         <Drawer.Navigator initialRouteName="Products">
           <Drawer.Screen name="Products" component={Products} />
-          <Drawer.Screen name="Account" component={ProfileScreen} />
+          <Drawer.Screen name="Account" component={Account} />
         </Drawer.Navigator>
       </AuthProvider>
     </NavigationContainer>
