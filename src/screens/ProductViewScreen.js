@@ -2,22 +2,23 @@ import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Context as ProductsContext} from '../context/ProductsContext';
+import {Context as CartContext} from '../context/CartContext';
+import uid from 'uid';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default ({route, navigation}) => {
-  const {id} = route.params;
+  const {chosenProduct} = route.params;
 
   const {state} = useContext(ProductsContext);
+  const {addItemToCart} = useContext(CartContext);
 
   const item = state.find(product => {
-    if (product._id === id) {
+    if (product._id === chosenProduct._id) {
       return product;
     }
   });
-
-  console.log(item);
 
   return (
     <View style={styles.container}>
@@ -28,7 +29,15 @@ export default ({route, navigation}) => {
       />
       <Text>{item.title}</Text>
       <Text style={styles.buttonTitle}>${item.price}</Text>
-      <Button title="Add to cart" containerStyle={styles.buttonContainer} />
+      <Button
+        title="Add to cart"
+        containerStyle={styles.buttonContainer}
+        onPress={() => {
+          const uniqID = uid();
+          console.log(uniqID);
+          addItemToCart({...chosenProduct, cartId: uniqID});
+        }}
+      />
     </View>
   );
 };

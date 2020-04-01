@@ -54,7 +54,7 @@ export default ({navigation}) => {
             <TouchableOpacity
               style={styles.product}
               onPress={() =>
-                navigation.navigate('ProductView', {id: item._id})
+                navigation.navigate('ProductView', {chosenProduct: item})
               }>
               <Image
                 source={{uri: item.pictures.pic1}}

@@ -18,19 +18,10 @@ import {navigationRef, navigate} from './src/navigationRef';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {DrawerActions} from '@react-navigation/native';
+import {Provider as CartProvider} from './src/context/CartContext';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
-function CartFlow() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Cart" component={CheckoutScreen} />
-      <Stack.Screen name="PaymentMethod" component={PaymentmodeScreen} />
-      <Stack.Screen name="OrderConfirmed" component={OrderConfirmedScreen} />
-    </Stack.Navigator>
-  );
-}
 
 function Products({navigation}) {
   return (
@@ -46,6 +37,11 @@ function Products({navigation}) {
               <Icon name="bars" size={30} style={{marginLeft: 20}} />
             </TouchableOpacity>
           ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+              <Icon name="shopping-cart" size={30} style={{marginRight: 20}} />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Stack.Screen
@@ -56,6 +52,57 @@ function Products({navigation}) {
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+              <Icon name="shopping-cart" size={30} style={{marginRight: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={CheckoutScreen}
+        options={{
+          headerTitle: '',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="PaymentMethod"
+        component={PaymentmodeScreen}
+        options={{
+          headerTitle: '',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+              <Icon name="shopping-cart" size={30} style={{marginRight: 20}} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="OrderConfirmed"
+        component={OrderConfirmedScreen}
+        options={{
+          headerTitle: '',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="bars" size={30} style={{marginLeft: 20}} />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+              <Icon name="shopping-cart" size={30} style={{marginRight: 20}} />
             </TouchableOpacity>
           ),
         }}
@@ -102,28 +149,30 @@ function App() {
     <NavigationContainer ref={navigationRef}>
       <AuthProvider>
         <ProductsProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Welcome"
-              component={WelcomeScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Signup"
-              component={SignupScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Signin"
-              component={SigninScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Shop"
-              component={Shop}
-              options={{headerShown: false}}
-            />
-          </Stack.Navigator>
+          <CartProvider>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Welcome"
+                component={WelcomeScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Signup"
+                component={SignupScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Signin"
+                component={SigninScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Shop"
+                component={Shop}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
+          </CartProvider>
         </ProductsProvider>
       </AuthProvider>
     </NavigationContainer>
