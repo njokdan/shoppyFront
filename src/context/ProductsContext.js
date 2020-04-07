@@ -1,4 +1,4 @@
-import createDataContext from './createDataContext';
+import createDataContext from '../utils/createDataContext';
 import shoppyApi from '../api/shoppyApi';
 
 const productsReducer = (state, action) => {
@@ -10,7 +10,7 @@ const productsReducer = (state, action) => {
   }
 };
 
-const getProducts = dispatch => async () => {
+const getProducts = (dispatch) => async () => {
   const res = await shoppyApi.get('/getItems');
   dispatch({type: 'GET_PRODUCTS', payload: res.data});
 };

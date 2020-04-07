@@ -1,4 +1,4 @@
-import createDataContext from './createDataContext';
+import createDataContext from '../utils/createDataContext';
 
 const cartReducer = (state, action) => {
   switch (action.type) {
@@ -6,7 +6,7 @@ const cartReducer = (state, action) => {
       return [...state].concat([action.payload]);
     }
     case 'REMOVE_ITEM_FROM_CART': {
-      return state.filter(product => {
+      return state.filter((product) => {
         return product.cartId != action.payload;
       });
     }
@@ -17,15 +17,15 @@ const cartReducer = (state, action) => {
   }
 };
 
-const addItemToCart = dispatch => item => {
+const addItemToCart = (dispatch) => (item) => {
   dispatch({type: 'ADD_ITEM_TO_CART', payload: item});
 };
 
-const removeItemFromCart = dispatch => cartId => {
+const removeItemFromCart = (dispatch) => (cartId) => {
   dispatch({type: 'REMOVE_ITEM_FROM_CART', payload: cartId});
 };
 
-const emptyCart = dispatch => () => {
+const emptyCart = (dispatch) => () => {
   dispatch({type: 'EMPTY_CART'});
 };
 

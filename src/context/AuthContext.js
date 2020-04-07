@@ -1,4 +1,4 @@
-import createDataContext from './createDataContext';
+import createDataContext from '../utils/createDataContext';
 import shoppyApi from '../api/shoppyApi';
 import AsyncStorage from '@react-native-community/async-storage';
 import {navigate} from '../navigationRef';
@@ -21,7 +21,7 @@ const authReducer = (state, action) => {
   }
 };
 
-const tryLocalSignin = dispatch => async () => {
+const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
     dispatch({type: 'SIGNIN', payload: token});
@@ -31,9 +31,9 @@ const tryLocalSignin = dispatch => async () => {
   }
 };
 
-const clearErrorMessage = dispatch => () => dispatch({type: 'CLEAR_ERROR'});
+const clearErrorMessage = (dispatch) => () => dispatch({type: 'CLEAR_ERROR'});
 
-const signup = dispatch => async ({email, password}) => {
+const signup = (dispatch) => async ({email, password}) => {
   try {
     const response = await shoppyApi.post('/signup', {email, password});
     await AsyncStorage.setItem('token', response.data.token);
@@ -50,13 +50,13 @@ const signup = dispatch => async ({email, password}) => {
   }
 };
 
-const signout = dispatch => async () => {
+const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem('token');
   dispatch({type: 'SIGNOUT'});
   navigate('Signin');
 };
 
-const signin = dispatch => async ({email, password}) => {
+const signin = (dispatch) => async ({email, password}) => {
   try {
     const response = await shoppyApi.post('/signin', {email, password});
     await AsyncStorage.setItem('token', response.data.token);
