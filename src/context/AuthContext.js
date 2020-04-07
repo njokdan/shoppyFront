@@ -6,8 +6,6 @@ import {navigate} from '../navigationRef';
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_ERROR': {
-      console.log(state.errorMessage);
-
       return {...state, errorMessage: action.payload};
     }
     case 'SIGNIN':
@@ -21,6 +19,8 @@ const authReducer = (state, action) => {
   }
 };
 
+const clearErrorMessage = (dispatch) => () => dispatch({type: 'CLEAR_ERROR'});
+
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
@@ -30,8 +30,6 @@ const tryLocalSignin = (dispatch) => async () => {
     navigate('Signin');
   }
 };
-
-const clearErrorMessage = (dispatch) => () => dispatch({type: 'CLEAR_ERROR'});
 
 const signup = (dispatch) => async ({email, password}) => {
   try {

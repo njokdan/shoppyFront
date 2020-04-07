@@ -8,7 +8,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const SignupScreen = ({navigation}) => {
   const [cred, setCred] = useState({email: '', password: ''});
-  const [err, setErr] = useState('');
+  // const [err, setErr] = useState('');
   const {signup} = useContext(AuthContext);
 
   return (
@@ -17,14 +17,16 @@ const SignupScreen = ({navigation}) => {
       <Input
         placeholder="email"
         value={cred.email}
-        onChangeText={newEmail => setCred({...cred, email: newEmail})}
+        onChangeText={(newEmail) => setCred({...cred, email: newEmail})}
         autoCorrect={false}
         autoCapitalize="none"
       />
       <Input
         placeholder="password"
         value={cred.password}
-        onChangeText={newPassword => setCred({...cred, password: newPassword})}
+        onChangeText={(newPassword) =>
+          setCred({...cred, password: newPassword})
+        }
         secureTextEntry={true}
         autoCorrect={false}
         autoCapitalize="none"

@@ -6,9 +6,9 @@ import {Context as AuthContext} from '../context/AuthContext';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const SigninScreen = ({navigation}) => {
+const SigninScreen = () => {
   const [cred, setCred] = useState({email: '', password: ''});
-  const [err, setErr] = useState('');
+  // const [err, setErr] = useState('');
   const {signin} = useContext(AuthContext);
 
   return (
@@ -17,7 +17,7 @@ const SigninScreen = ({navigation}) => {
       <Input
         placeholder="email"
         value={cred.email}
-        onChangeText={newEmail => setCred({...cred, email: newEmail})}
+        onChangeText={(newEmail) => setCred({...cred, email: newEmail})}
         autoCorrect={false}
         autoCapitalize="none"
       />
@@ -25,7 +25,9 @@ const SigninScreen = ({navigation}) => {
         placeholder="password"
         secureTextEntry={true}
         value={cred.password}
-        onChangeText={newPassword => setCred({...cred, password: newPassword})}
+        onChangeText={(newPassword) =>
+          setCred({...cred, password: newPassword})
+        }
         autoCorrect={false}
         autoCapitalize="none"
       />

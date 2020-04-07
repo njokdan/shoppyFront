@@ -7,7 +7,7 @@ import HeaderIcon from './src/components/HeaderIcon';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {navigationRef, navigate} from './src/navigationRef';
+import {navigationRef} from './src/navigationRef';
 
 //Screens
 import {
@@ -81,7 +81,7 @@ function Products({navigation}) {
 
 function Account({navigation}) {
   return (
-    <Stack.Navigator screenOptions={defaultHeaderNavigators}>
+    <Stack.Navigator screenOptions={defaultHeaderNavigators(navigation)}>
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
