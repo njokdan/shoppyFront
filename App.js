@@ -7,7 +7,7 @@ import HeaderIcon from './src/components/HeaderIcon';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {navigationRef} from './src/navigationRef';
+import {navigationRef, navigate} from './src/navigationRef';
 
 //Screens
 import {
@@ -20,6 +20,7 @@ import {
   PaymentmodeScreen,
   OrderConfirmedScreen,
   ProductsScreen,
+  ResolveAuthScreen,
 } from './src/screens/Screens';
 
 //Providers
@@ -79,6 +80,7 @@ function Products({navigation}) {
   );
 }
 
+//Account screen
 function Account({navigation}) {
   return (
     <Stack.Navigator screenOptions={defaultHeaderNavigators(navigation)}>
@@ -95,9 +97,10 @@ function Account({navigation}) {
   );
 }
 
+//Shop navigator
 function Shop() {
   return (
-    <NavigationContainer ref={navigationRef} independent={true}>
+    <NavigationContainer independent={true}>
       <AuthProvider>
         <Drawer.Navigator initialRouteName="Products">
           <Drawer.Screen name="Products" component={Products} />
@@ -108,6 +111,7 @@ function Shop() {
   );
 }
 
+//Opening navigator
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
@@ -115,6 +119,11 @@ function App() {
         <ProductsProvider>
           <CartProvider>
             <Stack.Navigator>
+              <Stack.Screen
+                name="CheckToken"
+                component={ResolveAuthScreen}
+                options={{headerShown: false}}
+              />
               <Stack.Screen
                 name="Welcome"
                 component={WelcomeScreen}

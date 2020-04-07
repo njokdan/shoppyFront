@@ -7,6 +7,7 @@ import CheckoutScreen from './CheckoutScreen';
 import PaymentmodeScreen from './PaymentmodeScreen';
 import OrderConfirmedScreen from './OrderConfirmedScreen';
 import ProductsScreen from './ProductsScreen';
+import ResolveAuthScreen from './ResolveAuthScreen';
 
 export {
   WelcomeScreen,
@@ -18,4 +19,5 @@ export {
   PaymentmodeScreen,
   OrderConfirmedScreen,
   ProductsScreen,
+  ResolveAuthScreen,
 };

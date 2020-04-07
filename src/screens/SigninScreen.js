@@ -2,14 +2,20 @@ import React, {useState, useContext} from 'react';
 import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {Text, Input, Button} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const SigninScreen = () => {
+const SigninScreen = ({navigation}) => {
   const [cred, setCred] = useState({email: '', password: ''});
-  // const [err, setErr] = useState('');
-  const {signin} = useContext(AuthContext);
+  const {signin, state, clearErrorMessage} = useContext(AuthContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      clearErrorMessage();
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -31,6 +37,7 @@ const SigninScreen = () => {
         autoCorrect={false}
         autoCapitalize="none"
       />
+      {state.errorMessage ? <Text>{state.errorMessage}</Text> : null}
       <Button
         title="Sign in"
         containerStyle={styles.buttonContainer}

@@ -27,7 +27,7 @@ const tryLocalSignin = (dispatch) => async () => {
     dispatch({type: 'SIGNIN', payload: token});
     navigate('Shop');
   } else {
-    navigate('Signin');
+    navigate('Welcome');
   }
 };
 
@@ -39,6 +39,7 @@ const signup = (dispatch) => async ({email, password}) => {
       type: 'SIGNUP',
       payload: response.data.token,
     });
+    clearErrorMessage();
     navigate('Shop');
   } catch (err) {
     dispatch({
@@ -51,7 +52,7 @@ const signup = (dispatch) => async ({email, password}) => {
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem('token');
   dispatch({type: 'SIGNOUT'});
-  navigate('Signin');
+  navigate('Welcome');
 };
 
 const signin = (dispatch) => async ({email, password}) => {
@@ -59,6 +60,7 @@ const signin = (dispatch) => async ({email, password}) => {
     const response = await shoppyApi.post('/signin', {email, password});
     await AsyncStorage.setItem('token', response.data.token);
     dispatch({type: 'SIGNIN', payload: response.data.token});
+    clearErrorMessage();
     navigate('Shop');
   } catch (error) {
     dispatch({
